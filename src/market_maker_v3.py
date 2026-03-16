@@ -137,10 +137,10 @@ def skill_score(brier: float, base_rate: float) -> float:
     """
     Brier skill score relative to climatological baseline.
 
-    BSS = 1 - (BS / BS_ref) where BS_ref is baseline Brier score.
-    Positive = better than base rate. Negative = worse.
+    BSS = 1 - (BS / BS_ref) where BS_ref = p(1-p) is the Brier score
+    of always predicting the base rate. Positive = better than naive.
     """
-    bs_ref = base_rate * (1 - base_rate) + (1 - base_rate) * base_rate
+    bs_ref = base_rate * (1.0 - base_rate)
     if bs_ref < 1e-10:
         return 0.0
     return 1.0 - (brier / bs_ref)
